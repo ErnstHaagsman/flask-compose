@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+<head>
+    <title>90s Guestbook</title>
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+    <h1 style="margin-bottom: 0;">Check out my guestbook!</h1>
+    <form action="/add" method="post">
+        <div>
+            <p>My name is:</p>
+            <input type="text" name="author" id="author" maxlength="50" />
+            <p>My message:</p>
+            <input type="text" name="comment_text" id="comment_text" maxlength="140" style="width: 400px;" />
+            <input type="submit" value="Post">
+        </div>
+    </form>
+
+    {% for post in posts %}
+        <div class="post">
+            <article>{{ post.comment_text }}</article>
+            <em>By <span class="author">{{ post.author }}</span>, posted {{ post.posted_at }}</em>
+        </div>
+    {% endfor %}
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,40 @@
+div.container {
+    width: 960px;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: "Helvetica Neue", sans-serif;
+}
+
+form > div {
+    width: 960px;
+}
+
+form > div * {
+    float: left;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    margin-right: 1em;
+    height: 20px;
+}
+
+form {
+    margin-bottom: 75px;
+}
+
+div.post {
+    margin-bottom: 30px;
+    margin-left: 15px;
+    width: 960px;
+}
+
+input[type=submit] {
+    border: none;
+    -webkit-appearance: none;
+    background-color: #CCC;
+    padding: 6px;
+    height: 26px;
+}
+
+span.author {
+    font-weight: bold;
+}
