@@ -2,5 +2,15 @@ version: '2'
 services:
   web:
     build: .
+    links:
+    - db
     ports:
     - "5000:5000"
+
+  db:
+    image: postgres
+    ports:
+    - "5432:5432"
+    environment:
+      POSTGRES_USER: "flaskapp"
+      POSTGRES_PASSWORD: "hunter2"
