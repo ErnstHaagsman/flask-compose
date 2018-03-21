@@ -13,7 +13,7 @@ def get_db():
     g.db = psycopg2.connect(dbname='flaskapp',
                             user='flaskapp',
                             password='hunter2',
-                            host='db')
+                            host='127.0.0.1')
 
   return g.db
 

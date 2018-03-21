@@ -1,0 +1,32 @@
+- hosts: localhost
+  become: true
+  become_user: postgres
+  vars:
+    db_name: flaskapp
+    db_user: flaskapp
+    db_pass: hunter2
+  tasks:
+    - name: Remove database if present
+      postgresql_db:
+        name: "{{ db_name }}"
+        state: absent
+
+    - name: Upload schema definition
+      copy:
+        src: schema.sql
+        dest: /tmp/schema.sql
+
+
+    - name: Create database
+      postgresql_db:
+        name: "{{ db_name }}"
+        owner: "{{ db_user }}"
+        state: present
+
+    - name: Run schema SQL code
+      shell: psql -f /tmp/schema.sql
+      environment:
+        PGHOST: 127.0.0.1
+        PGUSER: "{{ db_user }}"
+        PGPASSWORD: "{{ db_pass }}"
+        PGDATABASE: "{{ db_name }}"

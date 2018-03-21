@@ -1,0 +1,50 @@
+- hosts: localhost
+  become: yes
+  vars:
+    db_user: flaskapp
+    db_pass: hunter2
+  tasks:
+
+    - name: Install pip2 and pip3
+      apt:
+        name: "{{ item }}"
+      with_items:
+        - python-pip
+        - python3-pip
+
+    - name: Install psycopg2 in the system interpreter
+      pip:
+        name: psycopg2
+        state: present
+        executable: pip2
+
+    - name: Install PostgreSQL
+      apt:
+        name: postgresql-9.5
+
+    - name: Configure user
+      become: true
+      become_user: postgres
+      postgresql_user:
+        name: "{{ db_user }}"
+        password: "{{ db_pass }}"
+
+
+    - name: Copy requirements
+      copy:
+        src: requirements.txt
+        dest: /tmp/requirements.txt
+
+    - name: Install virtualenv
+      pip:
+        name: virtualenv
+        executable: pip3
+
+    - name: Set up virtualenv
+      become: false
+      pip:
+        requirements: /tmp/requirements.txt
+        virtualenv: /home/ubuntu/venv
+        virtualenv_python: python3
+
+
